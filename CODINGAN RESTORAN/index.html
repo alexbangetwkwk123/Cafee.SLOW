@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Restoran Kenangan Indah - Fine Dining</title>
+  
+  <!-- CSS Frameworks & Premium Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #0f1115;
+      --bg-card: #181b20;
+      --gold-primary: #d4af37;
+      --gold-hover: #f3e5ab;
+      --text-light: #f5f5f7;
+      --text-muted: #a1a1a6;
+      --border-gold: rgba(212, 175, 55, 0.3);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: rgba(15, 17, 21, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    }
+    .navbar-brand {
+      color: var(--gold-primary) !important;
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+    }
+    .nav-link {
+      color: var(--text-light) !important;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      margin: 0 10px;
+      transition: all 0.3s;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--gold-primary) !important;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(180deg, rgba(15,17,21,0.4) 0%, rgba(15,17,21,0.95) 100%),
+                  url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      padding: 160px 0 100px 0;
+      text-align: center;
+    }
+    .hero-title {
+      font-size: 4rem;
+      color: var(--gold-primary);
+      text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    }
+
+    /* Gold Buttons */
+    .btn-gold {
+      background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+      color: #000;
+      font-weight: 600;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 100%);
+      color: #000;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    }
+    .btn-outline-gold {
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      padding: 12px 28px;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    .btn-outline-gold:hover {
+      background-color: var(--gold-primary);
+      color: #000;
+    }
+
+    /* Menu Cards */
+    .card-menu {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .card-menu:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+      border-color: var(--gold-primary);
+    }
+    .card-img-wrapper {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+    }
+    .card-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .card-menu:hover .card-img-wrapper img {
+      transform: scale(1.08);
+    }
+    .badge-category {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: rgba(15, 17, 21, 0.85);
+      color: var(--gold-primary);
+      border: 1px solid var(--gold-primary);
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* Filter Buttons */
+    .filter-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted);
+      padding: 8px 20px;
+      border-radius: 30px;
+      margin: 0 4px 10px 4px;
+      transition: all 0.3s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+      background: rgba(212, 175, 55, 0.05);
+    }
+
+    /* Form Inputs */
+    .form-control, .form-select {
+      background-color: #121418;
+      border: 1px solid #2a2e35;
+      color: var(--text-light);
+      padding: 12px;
+      border-radius: 4px;
+    }
+    .form-control:focus, .form-select:focus {
+      background-color: #121418;
+      border-color: var(--gold-primary);
+      color: var(--text-light);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    }
+
+    /* Floating Cart Button */
+    .floating-cart-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 999;
+      background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+      color: #000;
+      border: none;
+      padding: 15px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    /* Modal Fine Dining */
+    .modal-content {
+      background-color: var(--bg-card);
+      border: 1px solid var(--gold-primary);
+      color: var(--text-light);
+    }
+    .modal-header {
+      border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
+    .modal-footer {
+      border-top: 1px solid rgba(212,175,55,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand font-serif fw-bold" href="#">
+        <i class="fa-solid fa-crown me-2"></i>KENANGAN INDAH
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto text-uppercase small">
+          <li class="nav-item"><a class="nav-link" href="#hero">Beranda</a></li>
+          <li class="nav-item"><a class="nav-link" href="#menu">Buku Menu</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reservasi">Reservasi VIP</a></li>
+          <li class="nav-item"><a class="nav-link" href="#tentang">Filosofi</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="container">
+      <p class="text-uppercase letter-spacing-2 mb-2" style="color: var(--gold-primary); font-size: 0.9rem;">Fine Dining & Heritage Cuisine</p>
+      <h1 class="hero-title font-serif mb-4">Kemewahan Rasa dalam Setiap Kenangan</h1>
+      <p class="lead text-light opacity-75 max-w-600 mx-auto mb-5" style="max-width: 650px;">
+        Nikmati hidangan warisan berselera tinggi yang diracik khusus oleh Executive Chef kami menggunakan bahan-bahan impor pilihan dan rempah murni nusantara.
+      </p>
+      <div>
+        <a href="#reservasi" class="btn btn-gold me-3"><i class="fa-solid fa-utensils me-2"></i>Reservasi Meja</a>
+        <a href="#menu" class="btn btn-outline-gold"><i class="fa-solid fa-book-open me-2"></i>Jelajahi Menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="py-5">
+    <div class="container py-4">
+      <div class="text-center mb-5">
+        <p class="text-uppercase small mb-1" style="color:var(--gold-primary)">Artisanal Gastronomy</p>
+        <h2 class="font-serif display-5 fw-bold">Buku Menu Eksklusif</h2>
+        <div style="width: 60px; height: 2px; background: var(--gold-primary); margin: 15px auto;"></div>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="text-center mb-5">
+        <button class="filter-btn active" onclick="filterMenu('all', this)">Semua Menu</button>
+        <button class="filter-btn" onclick="filterMenu('main', this)">Makanan Utama</button>
+        <button class="filter-btn" onclick="filterMenu('dessert', this)">Dessert & Penutup</button>
+        <button class="filter-btn" onclick="filterMenu('drink', this)">Minuman & Mocktail</button>
+      </div>
+
+      <!-- Menu Grid -->
+      <div class="row g-4" id="menuGrid">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservasi Section -->
+  <section id="reservasi" class="py-5" style="background: #121418;">
+    <div class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card p-4 p-md-5" style="background: var(--bg-card); border: 1px solid var(--border-gold);">
+            <div class="text-center mb-4">
+              <p class="text-uppercase small mb-1" style="color:var(--gold-primary)">Table Booking</p>
+              <h3 class="font-serif fw-bold display-6">Reservasi Meja VIP</h3>
+              <p class="text-muted small">Pastikan tempat Anda tersedia untuk pengalaman kuliner yang tidak terlupakan.</p>
+            </div>
+
+            <div id="resAlert" class="alert d-none"></div>
+
+            <form id="formReservasi" onsubmit="submitReservasi(event)">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label small text-uppercase">Nama Lengkap</label>
+                  <input type="text" class="form-control" id="resNama" required placeholder="Contoh: Bpk. Alexander">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-uppercase">Nomor WhatsApp</label>
+                  <input type="tel" class="form-control" id="resWhatsapp" required placeholder="08xxxxxxxxxx">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label small text-uppercase">Tanggal</label>
+                  <input type="date" class="form-control" id="resTanggal" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label small text-uppercase">Jam Kunjungan</label>
+                  <input type="time" class="form-control" id="resJam" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label small text-uppercase">Jumlah Tamu</label>
+                  <select class="form-select" id="resTamu" required>
+                    <option value="2 Orang">2 Orang (Romantic Dining)</option>
+                    <option value="3-4 Orang">3 - 4 Orang (Family)</option>
+                    <option value="5-8 Orang">5 - 8 Orang (Executive)</option>
+                    <option value="VIP Room">Private Event (>8 Orang)</option>
+                  </select>
+                </div>
+                <div class="col-md-12">
+                  <label class="form-label small text-uppercase">Pilihan Area Suasana</label>
+                  <select class="form-select" id="resArea" required>
+                    <option value="Main Dining Hall">Main Dining Hall (Live Piano)</option>
+                    <option value="Outdoor Terrace Lounge">Outdoor Terrace Lounge (City View)</option>
+                    <option value="VIP Private Room">VIP Private Room (Private Server)</option>
+                  </select>
+                </div>
+                <div class="col-md-12">
+                  <label class="form-label small text-uppercase">Permintaan Spesial (Alergi / Acara)</label>
+                  <textarea class="form-control" id="resCatatan" rows="3" placeholder="Contoh: Perayaan Anniversary / Alergi Makanan Laut"></textarea>
+                </div>
+                <div class="col-12 mt-4">
+                  <button type="submit" id="btnResSubmit" class="btn btn-gold w-100 py-3">
+                    <span id="resSpinner" class="spinner-border spinner-border-sm me-2 d-none"></span>
+                    Konfirmasi Reservasi Saya
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Cart Trigger -->
+  <button class="floating-cart-btn" data-bs-toggle="modal" data-bs-target="#cartModal">
+    <i class="fa-solid fa-champagne-glasses me-2"></i>Pesanan Anda 
+    <span class="badge bg-dark text-warning ms-2" id="cartBadge">0</span>
+  </button>
+
+  <!-- Modal Cart & Checkout -->
+  <div class="modal fade" id="cartModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title font-serif fw-bold"><i class="fa-solid fa-basket-shopping text-warning me-2"></i>Rincian Pesanan Kuliner</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div id="cartItemsList" class="mb-4"></div>
+
+          <div class="border-top border-secondary pt-3">
+            <div class="d-flex justify-content-between small text-muted mb-1">
+              <span>Subtotal Menu:</span>
+              <span id="cartSubtotal">Rp 0</span>
+            </div>
+            <div class="d-flex justify-content-between small text-muted mb-2">
+              <span>Pajak & Layanan Restoran (10%):</span>
+              <span id="cartTax">Rp 0</span>
+            </div>
+            <div class="d-flex justify-content-between font-serif fs-4 fw-bold" style="color:var(--gold-primary);">
+              <span>Total Pembayaran:</span>
+              <span id="cartTotal">Rp 0</span>
+            </div>
+          </div>
+
+          <hr class="my-4 border-secondary">
+
+          <h6 class="font-serif fw-bold mb-3">Informasi Pengiriman & Pemesan</h6>
+          <form id="formCheckout" onsubmit="submitCheckout(event)">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="orderNama" placeholder="Nama Lengkap" required>
+              </div>
+              <div class="col-md-6">
+                <input type="tel" class="form-control" id="orderWhatsapp" placeholder="No. WhatsApp Active" required>
+              </div>
+              <div class="col-md-6">
+                <select class="form-select" id="orderTipe" required>
+                  <option value="Dine-in (Di Meja)">Dine-in (Makan di Tempat)</option>
+                  <option value="VIP Delivery Service">VIP Home Delivery (Kurir Khusus)</option>
+                  <option value="Takeaway">Takeaway (Pick Up)</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <select class="form-select" id="orderPembayaran" required>
+                  <option value="QRIS Instant">QRIS / All E-Wallet</option>
+                  <option value="Virtual Account">Virtual Account Bank Transfer</option>
+                  <option value="Credit Card">Credit Card (Visa/Mastercard)</option>
+                </select>
+              </div>
+              <div class="col-12 mt-4">
+                <button type="submit" id="btnOrderSubmit" class="btn btn-gold w-100 py-3">Selesaikan & Bayar Pesanan</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Data Menu Master
+    const menuData = [
+      {
+        id: 1,
+        category: 'main',
+        name: 'Wagyu Tenderloin Meltique',
+        desc: 'Daging Wagyu MB7 200g dengan saus truf hitam, kentang tumbuk halus, dan sayuran organik.',
+        price: 285000,
+        img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 2,
+        category: 'main',
+        name: 'Nasi Goreng Bebek Truffle',
+        desc: 'Nasi goreng beras aromatik dengan daging bebek panggang empuk, minyak truf, dan emping renyah.',
+        price: 135000,
+        img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 3,
+        category: 'main',
+        name: 'Salmon Grill Sauce Lemon Butter',
+        desc: 'Ikan salmon Segar Norwegia dipanggang krispi dengan saus mentega lemon dan asparagus segar.',
+        price: 195000,
+        img: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 4,
+        category: 'dessert',
+        name: 'Chocolate Lava Gold Leaf',
+        desc: 'Kue cokelat Belgia lumer dihiasi lembaran emas murni 24k dan es krim vanila Madagaskar.',
+        price: 85000,
+        img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80'
+      },
+      {
+        id: 5,
+        category: 'drink',
+        name: 'Royal Heritage Mocktail',
+        desc: 'Perpaduan buah delima segar, marakisa, air mawar, dan sentuhan soda jernih.',
+        price: 55000,
+        img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80'
+      }
+    ];
+
+    let cart = [];
+
+    // Render Menu
+    function renderMenu(items) {
+      const grid = document.getElementById('menuGrid');
+      grid.innerHTML = '';
+
+      items.forEach(item => {
+        grid.innerHTML += `
+          <div class="col-md-6 col-lg-4">
+            <div class="card-menu h-100 d-flex flex-column">
+              <div class="card-img-wrapper">
+                <span class="badge-category text-uppercase">${item.category}</span>
+                <img src="${item.img}" alt="${item.name}">
+              </div>
+              <div class="p-4 d-flex flex-column flex-grow-1">
+                <h5 class="font-serif fw-bold mb-2" style="color:var(--gold-primary)">${item.name}</h5>
+                <p class="text-muted small flex-grow-1">${item.desc}</p>
+                <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top border-secondary">
+                  <span class="fw-bold fs-5 text-light">Rp ${item.price.toLocaleString('id-ID')}</span>
+                  <button class="btn btn-gold btn-sm" onclick="addToCart(${item.id})">+ Tambah</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // Filter Function
+    function filterMenu(cat, element) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      element.classList.add('active');
+
+      if (cat === 'all') {
+        renderMenu(menuData);
+      } else {
+        renderMenu(menuData.filter(i => i.category === cat));
+      }
+    }
+
+    // Cart Operations
+    function addToCart(id) {
+      const item = menuData.find(m => m.id === id);
+      const inCart = cart.find(c => c.id === id);
+
+      if (inCart) {
+        inCart.qty++;
+      } else {
+        cart.push({ ...item, qty: 1 });
+      }
+      updateCartUI();
+    }
+
+    function changeQty(id, delta) {
+      const item = cart.find(c => c.id === id);
+      if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) {
+          cart = cart.filter(c => c.id !== id);
+        }
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const cartBadge = document.getElementById('cartBadge');
+      const cartList = document.getElementById('cartItemsList');
+      const cartSubtotal = document.getElementById('cartSubtotal');
+      const cartTax = document.getElementById('cartTax');
+      const cartTotal = document.getElementById('cartTotal');
+
+      let subtotal = 0;
+      let totalQty = 0;
+
+      cartList.innerHTML = '';
+
+      if (cart.length === 0) {
+        cartList.innerHTML = '<p class="text-center text-muted py-3">Keranjang pesanan Anda masih kosong.</p>';
+      } else {
+        cart.forEach(item => {
+          subtotal += item.price * item.qty;
+          totalQty += item.qty;
+
+          cartList.innerHTML += `
+            <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary">
+              <div>
+                <h6 class="mb-0 font-serif text-warning">${item.name}</h6>
+                <small class="text-muted">Rp ${item.price.toLocaleString('id-ID')}</small>
+              </div>
+              <div class="d-flex align-items-center">
+                <button class="btn btn-sm btn-outline-secondary text-light px-2 py-0 me-2" onclick="changeQty(${item.id}, -1)">-</button>
+                <span class="fw-bold me-2">${item.qty}</span>
+                <button class="btn btn-sm btn-outline-secondary text-light px-2 py-0 me-3" onclick="changeQty(${item.id}, 1)">+</button>
+                <span class="fw-bold" style="width: 100px; text-align:right;">Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      const tax = subtotal * 0.1;
+      const grandTotal = subtotal + tax;
+
+      cartBadge.innerText = totalQty;
+      cartSubtotal.innerText = 'Rp ' + subtotal.toLocaleString('id-ID');
+      cartTax.innerText = 'Rp ' + tax.toLocaleString('id-ID');
+      cartTotal.innerText = 'Rp ' + grandTotal.toLocaleString('id-ID');
+    }
+
+    // Process Forms
+    function submitReservasi(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnResSubmit');
+      const spinner = document.getElementById('resSpinner');
+      const alertBox = document.getElementById('resAlert');
+
+      btn.disabled = true;
+      spinner.classList.remove('d-none');
+
+      const formData = {
+        nama: document.getElementById('resNama').value,
+        whatsapp: document.getElementById('resWhatsapp').value,
+        tanggal: document.getElementById('resTanggal').value,
+        jam: document.getElementById('resJam').value,
+        jumlahTamu: document.getElementById('resTamu').value,
+        area: document.getElementById('resArea').value,
+        catatan: document.getElementById('resCatatan').value
+      };
+
+      google.script.run
+        .withSuccessHandler(res => {
+          btn.disabled = false;
+          spinner.classList.add('d-none');
+          alertBox.classList.remove('d-none', 'alert-danger');
+          alertBox.classList.add('alert-success');
+          alertBox.innerText = res.message;
+          document.getElementById('formReservasi').reset();
+        })
+        .withFailureHandler(err => {
+          btn.disabled = false;
+          spinner.classList.add('d-none');
+          alertBox.classList.remove('d-none', 'alert-success');
+          alertBox.classList.add('alert-danger');
+          alertBox.innerText = "Gagal memproses reservasi.";
+        })
+        .processReservation(formData);
+    }
+
+    function submitCheckout(e) {
+      e.preventDefault();
+      if (cart.length === 0) {
+        alert('Keranjang belanja Anda masih kosong!');
+        return;
+      }
+
+      const subtotalVal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const taxVal = subtotalVal * 0.1;
+      const totalVal = subtotalVal + taxVal;
+
+      const orderData = {
+        items: cart,
+        subtotal: 'Rp ' + subtotalVal.toLocaleString('id-ID'),
+        tax: 'Rp ' + taxVal.toLocaleString('id-ID'),
+        total: 'Rp ' + totalVal.toLocaleString('id-ID'),
+        nama: document.getElementById('orderNama').value,
+        whatsapp: document.getElementById('orderWhatsapp').value,
+        tipe: document.getElementById('orderTipe').value,
+        pembayaran: document.getElementById('orderPembayaran').value
+      };
+
+      google.script.run
+        .withSuccessHandler(res => {
+          alert(res.message);
+          cart = [];
+          updateCartUI();
+          bootstrap.Modal.getInstance(document.getElementById('cartModal')).hide();
+        })
+        .processOrder(orderData);
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      renderMenu(menuData);
+    });
+  </script>
+</body>
+</html>
